@@ -1,0 +1,71 @@
+<h2>Inventario</h2>
+
+<p *ngIf="mensaje">{{ mensaje }}</p>
+
+<!-- FORMULARIO -->
+<form (ngSubmit)="guardar()" #invForm="ngForm" style="margin-bottom: 20px;">
+
+  <div>
+    <label>SKU:</label>
+    <input
+      type="text"
+      name="sku"
+      [(ngModel)]="formModel.SKU"
+      [readonly]="editMode"
+      required
+    />
+  </div>
+
+  <div>
+    <label>Nombre:</label>
+    <input
+      type="text"
+      name="nombre"
+      [(ngModel)]="formModel.nombre"
+      required
+    />
+  </div>
+
+  <div>
+    <label>Cantidad:</label>
+    <input
+      type="number"
+      name="cantidad"
+      [(ngModel)]="formModel.cantidad"
+      required
+      min="0"
+    />
+  </div>
+
+  <div style="margin-top: 10px;">
+    <button type="submit">
+      {{ editMode ? 'Actualizar' : 'Crear' }}
+    </button>
+    <button type="button" (click)="limpiarFormulario()">
+      Limpiar
+    </button>
+  </div>
+</form>
+
+<!-- TABLA -->
+<table border="1" cellpadding="5" cellspacing="0">
+  <thead>
+    <tr>
+      <th>SKU</th>
+      <th>Nombre</th>
+      <th>Cantidad</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of inventario">
+      <td>{{ item.SKU }}</td>
+      <td>{{ item.nombre }}</td>
+      <td>{{ item.cantidad }}</td>
+      <td>
+        <button type="button" (click)="seleccionar(item)">Editar</button>
+        <button type="button" (click)="eliminar(item)">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

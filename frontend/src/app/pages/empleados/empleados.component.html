@@ -1,0 +1,74 @@
+<h2>Empleados</h2>
+<p *ngIf="mensaje">{{ mensaje }}</p>
+
+<form (ngSubmit)="guardar()" #empForm="ngForm" style="margin-bottom: 20px;">
+  <div>
+    <label>ID Empleado:</label>
+    <input
+      type="number"
+      name="idEmpleado"
+      [(ngModel)]="formModel.idEmpleado"
+      [readonly]="editMode"
+      required
+    />
+  </div>
+
+  <div>
+    <label>Nombre:</label>
+    <input
+      type="text"
+      name="nombre"
+      [(ngModel)]="formModel.nombre"
+      required
+    />
+  </div>
+
+  <div>
+    <label>Apellido:</label>
+    <input
+      type="text"
+      name="apellido"
+      [(ngModel)]="formModel.apellido"
+    />
+  </div>
+
+  <div>
+    <label>Puesto:</label>
+    <input
+      type="text"
+      name="puesto"
+      [(ngModel)]="formModel.puesto"
+    />
+  </div>
+
+  <div style="margin-top: 10px;">
+    <button type="submit">
+      {{ editMode ? 'Actualizar' : 'Crear' }}
+    </button>
+    <button type="button" (click)="limpiarFormulario()">Limpiar</button>
+  </div>
+</form>
+
+<table border="1" cellpadding="5" cellspacing="0">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nombre</th>
+      <th>Apellido</th>
+      <th>Puesto</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let emp of empleados">
+      <td>{{ emp.idEmpleado }}</td>
+      <td>{{ emp.nombre }}</td>
+      <td>{{ emp.apellido }}</td>
+      <td>{{ emp.puesto }}</td>
+      <td>
+        <button type="button" (click)="seleccionar(emp)">Editar</button>
+        <button type="button" (click)="eliminar(emp)">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

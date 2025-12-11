@@ -1,0 +1,100 @@
+<h2>Pólizas</h2>
+<p *ngIf="mensaje">{{ mensaje }}</p>
+
+<!-- FORMULARIO -->
+<form (ngSubmit)="guardar()" #polForm="ngForm" style="margin-bottom: 20px;">
+
+  <div>
+    <label>Empleado:</label>
+    <select
+      name="empleadoGenero"
+      [(ngModel)]="formModel.empleadoGenero"
+      required
+    >
+      <option [ngValue]="0">-- Seleccione --</option>
+      <option *ngFor="let emp of empleados" [ngValue]="emp.idEmpleado">
+        {{ emp.idEmpleado }} - {{ emp.nombre }} {{ emp.apellido }}
+      </option>
+    </select>
+  </div>
+
+  <div>
+    <label>Artículo (SKU):</label>
+    <select
+      name="sku"
+      [(ngModel)]="formModel.sku"
+      required
+    >
+      <option [ngValue]="''">-- Seleccione --</option>
+      <option *ngFor="let item of inventario" [ngValue]="item.SKU">
+        {{ item.SKU }} - {{ item.nombre }}
+      </option>
+    </select>
+  </div>
+
+  <div>
+    <label>Cantidad:</label>
+    <input
+      type="number"
+      name="cantidad"
+      [(ngModel)]="formModel.cantidad"
+      required
+      min="1"
+    />
+  </div>
+
+  <!-- Fecha: opcional, puede ser solo display si el backend la genera -->
+  <div>
+    <label>Fecha:</label>
+    <input
+      type="text"
+      name="fecha"
+      [(ngModel)]="formModel.fecha"
+      placeholder="(la puede asignar el backend)"
+    />
+  </div>
+
+  <div style="margin-top: 10px;">
+    <button type="submit">
+      {{ editMode ? 'Actualizar' : 'Crear' }}
+    </button>
+    <button type="button" (click)="limpiarFormulario()">Limpiar</button>
+  </div>
+</form>
+
+<!-- TABLA -->
+<table border="1" cellpadding="5" cellspacing="0">
+  <thead>
+    <tr>
+      <th>ID Póliza</th>
+      <th>Empleado</th>
+      <th>SKU</th>
+      <th>Artículo</th>
+      <th>Cantidad</th>
+      <th>Fecha</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let p of polizas">
+      <td>{{ p.idPolizas }}</td>
+
+      <td>
+        {{ p.empleadoGenero?.idEmpleado }} -
+        {{ p.empleadoGenero?.nombre }} {{ p.empleadoGenero?.apellido }}
+      </td>
+
+      <td>{{ p.articulo?.SKU }}</td>
+      <td>{{ p.articulo?.nombre }}</td>
+
+      <td>{{ p.cantidad }}</td>
+      <td>{{ p.fecha }}</td>
+      <td>
+        <button type="button" (click)="seleccionar(p)">Editar</button>
+        <button type="button" (click)="eliminar(p)">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+
+
+</table>

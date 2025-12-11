@@ -1,0 +1,21 @@
+# ================
+# BACKEND (SPRING)
+# ================
+backend/target/
+backend/.idea/
+backend/.classpath
+backend/.project
+backend/.settings/
+
+# ================
+# FRONTEND (ANGULAR)
+# ================
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+
+# ================
+# SISTEMA / OS
+# ================
+.DS_Store
+Thumbs.db
